@@ -25,6 +25,7 @@ jobs:
         tags: hyeop29/hostservice:${{ github.sha }}
   updateYaml:
     runs-on: ubunt-latest
+    needs: buildImage
     steps:
       - name: 1. Checkout
         uses: actions/checkout@v3
