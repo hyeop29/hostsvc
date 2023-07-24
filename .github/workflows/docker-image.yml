@@ -24,7 +24,7 @@ jobs:
         push: true
         tags: hyeop29/hostservice:${{ github.sha }}
   updateYaml:
-    runs-on: ubunt-latest
+    runs-on: ubuntu-latest
     needs: buildImage
     steps:
       - name: 1. Checkout
