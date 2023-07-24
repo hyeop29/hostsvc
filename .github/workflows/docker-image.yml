@@ -8,3 +8,18 @@ on:
 jobs:
   buildImage:
     runs-on: ubuntu-latest # vm을 이용해 container를 띄우는데 ubuntu 기반
+    steps:
+    - name: 1. Checkout
+      uses: actions/checkout@v3 # checkout : source를 내가 내려받는 거, 현재 내가 돌아가는 파이프라인을 ubuntu container에 받아온다.
+    
+    - name: 2. Login to Doker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: 3. Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: hyeop29/hostservice: ${{ github.sha }}
