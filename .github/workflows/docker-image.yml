@@ -23,3 +23,18 @@ jobs:
       with:
         push: true
         tags: hyeop29/hostservice:${{ github.sha }}
+  updateYaml:
+    runs-on: ubunt-latest
+    steps:
+      - name: 1. Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: 'hyeop29/hostsvc-cd'
+          token: ${{ secrets.GITHAB_TOEKN }}
+      - name: 2. Change Docker Tag
+        run: |
+          sed "s/image: hyeop29\/node-app:.*/images: hyeop29\/node-app:${{ github.sha }}/g" 
+          git config --global user.email "3110ch@naver"
+          git config --global user.name "hyeop29"
+          git commit -am "triggered by github action"
+          git push origin main
